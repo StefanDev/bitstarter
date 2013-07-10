@@ -54,14 +54,12 @@ var loadChecks = function(checksfile) {
 var checkHtmlFile = function(htmlfile, checksfile) {
 //    $ = cheerioHtmlFile(htmlfile);
      $ = cheerioContent(htmlfile);
-    console.log("cheerio function:");
     var checks = loadChecks(checksfile).sort();
     var out = {};
     for(var ii in checks) {
         var present = $(checks[ii]).length > 0;
         out[checks[ii]] = present;
     }
-//    return out;
     checkJsonFile(out);
 };
 
@@ -84,11 +82,8 @@ if(require.main == module) {
         .option('-u, --url <url>', 'url to index.html', NOURL)
         .parse(process.argv);
 
-        console.log("is url"+program.url);
-
     if(program.url != NOURL){
         restler.get(program.url).on('complete', function(result) {
-             console.log("doing url...");
            if (result instanceof Error) {
              sys.puts('Error: ' + result.message);
            } else {
